@@ -95,11 +95,11 @@ def main():
     # https://www.deepl.com/es/pro-api
     # Get your key down here and paste it in aut_key.txt
     # https://www.deepl.com/es/your-account/keys
-    DEEPL_AUTH_KEY = open('api_key.txt', 'a+').read()
+    DEEPL_API_KEY = open('api_key.txt').read()
     # Check the list and set your desired languages before starting
     # https://developers.deepl.com/docs/api-reference/languages
-    SOURCE_LANGUAGE = open('source_language.txt', 'a+').read()
-    TARGET_LANGUAGE = open('target_language.txt', 'a+').read()
+    SOURCE_LANGUAGE = open('source_language.txt').read()
+    TARGET_LANGUAGE = open('target_language.txt').read()
 
     # Create input folder
     if not os.path.exists(input_path):
@@ -109,7 +109,7 @@ def main():
 
     # Init translator
     print("Started!")
-    translator = deepl.Translator(DEEPL_AUTH_KEY)
+    translator = deepl.Translator(DEEPL_API_KEY)
     glossary = translator.create_glossary(name=GLOSSARY_NAME, source_lang=SOURCE_LANGUAGE, target_lang=TARGET_LANGUAGE, entries=GLOSSARY_ENTRIES)
 
     srt_files = get_srt_files(input_path)
@@ -121,7 +121,7 @@ def main():
         subtitlesData = translate_subtitles(subtitlesData, translator, glossary, SOURCE_LANGUAGE, TARGET_LANGUAGE)
         # Save Translation
         write_SRT(subtitlesData, os.path.join(output_path, srt_file))
-    print("Finished!")
+    print("Finished! Check the Output folder")
 
 if __name__ == "__main__":
     main()
